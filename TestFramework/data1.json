@@ -1,0 +1,20 @@
+﻿[
+    [
+        {
+            "AddressCountry": "US"
+        },
+        {
+            "COPSEmail": "ECM AdobeINC COPS Email",
+            "PAEmail": "ECM AdobeIreland PA Email"
+        }
+    ],
+	[
+        {
+            "AddressCountry": "UK"
+        },
+        {
+            "COPSEmail": "ECM ROW COPS Email 1",
+            "PAEmail": "ECM AdobeINC PA Email"
+        }
+	]
+]

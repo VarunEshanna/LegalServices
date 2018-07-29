@@ -1,0 +1,24 @@
+﻿[
+	[
+		{
+			"AgreementType":"DMA",
+			"AccountCountry":"US",
+			"MarketSegment":"Commercial",
+			"isCorporateEntityOverride":true
+		},
+		{
+			"AdobeCorporateEntity":"ADIR"
+		}
+	],
+	[
+		{
+			"AgreementType":"DMA",
+			"AccountCountry":"UK",
+			"MarketSegment":"Commercial",
+			"isCorporateEntityOverride":true
+		},
+		{
+			"AdobeCorporateEntity":"ADIR"
+		}
+	]
+]
