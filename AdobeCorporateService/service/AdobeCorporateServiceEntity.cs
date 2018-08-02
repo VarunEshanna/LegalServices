@@ -8,34 +8,31 @@ namespace LegalService
 {
     public class AgreementInitiationServiceEntity
     {
-        public void GetAdobeCorporateEntity (Entity entity)
+        public void GetAdobeCorporateEntity(AccountEntity entity)
         {
-            String[] accountCountryList = { "US", "CA" ,"MX", "JP" };
-            if (entity.GetAttributeValue<Boolean>("isCorporateEntityOverride"))
+            String[] accountCountryList = { "US", "CA", "MX", "JP" };
+            if (Boolean.Parse(entity.isCorporateEntityOverride))
             {
-                if (entity.GetAttributeValue<String>("MarketSegment").Equals("Commercial")){
-                    if (accountCountryList.Any(item => entity.GetAttributeValue<String>("AccountCountry").Contains(item)) ||
-                        entity.GetAttributeValue<String>("AgreementType").Equals("Network Access"))
+                if (entity.MarketSegment.Equals("Commercial"))
+                {
+                    if (accountCountryList.Any(item => entity.AccountCountry.Contains(item)) ||
+                        entity.AgreementType.Equals("Network Access"))
                     {
-                        entity.Attributes.Add("AdobeCorporateEntity", "ADUS");
+                        entity.AdobeCorporateEntity = "ADUS";
                     }
                     else
                     {
-                        entity.Attributes.Add("AdobeCorporateEntity", "ADIR");                        
+                        entity.AdobeCorporateEntity = "ADIR";
                     }
                 }
                 else
                 {
-                    entity.Attributes.Add("AdobeCorporateEntity", "ADIR");
+                    entity.AdobeCorporateEntity = "3PTY";
                 }
-            }
-            else
-            {
-                entity.Attributes.Add("AdobeCorporateEntity", "3PTY");
             }
         }
 
-        public void GetAgreementContractClass(Entity entity)
+            public void GetAgreementContractClass(Entity entity)
         {
             String value = null;
 
@@ -173,9 +170,14 @@ namespace LegalService
         }
 
 
-        public void populateDealDeskCase()
+        public void PopulateDealDeskCase()
         {
 
+        }
+
+        public String GetAdobeCorporateEntity(AccountEntity entity, ContactEntity contact)
+        {
+            return "test";
         }
 
     }

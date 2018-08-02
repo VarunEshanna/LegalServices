@@ -1,6 +1,4 @@
-﻿using System;
-using LegalService;
-using Microsoft.Xrm.Sdk;
+﻿using LegalService;
 using NUnit.Framework;
 using TestFramework;
 
@@ -23,7 +21,5 @@ namespace LegalServiceTest
             AgreementInitiationService adobeCorporateService = new AgreementInitiationService();
             return adobeCorporateService.GetAgreementContractClass(GetAgreementContractClassRequest);
         }
-
-        
     }
 }

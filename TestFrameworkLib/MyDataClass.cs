@@ -5,19 +5,58 @@ using System.Reflection;
 using LegalService;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
+using TestFrameworkLib;
 
 namespace TestFramework
 {
 
-    public static class EntityExtension
-    {
-        public static bool IsEqual(Entity entity, String dataSetReturnValue) {
-            return true;
-        }
-    }
-
     public class MyDataClass
     {
+
+        public static IEnumerable ManualAssertion(String dataSetName)
+        {
+            MongoDbConnection mongoDbConnection = new MongoDbConnection();
+            Dictionary < String, Object > names = mongoDbConnection.getRequestData(dataSetName);
+
+            int dataSets = 0;
+            int arguments = 0;
+
+            foreach (KeyValuePair<String, Object> entry in names)
+            {
+                String objectName = entry.Key;
+                if (objectName.IndexOf('1') == 7)
+                {
+                    arguments++;
+                }
+                else
+                {
+                    break;
+                }
+                    
+            }
+            dataSets = names.Count / arguments;
+
+
+
+            for (int i=1; i < dataSets+1; i++)
+            {
+                //TODO create testcases objects using reflection
+                if(arguments == 1)
+                {
+                    yield return new TestCaseData(names["Request"+i+"1"]);
+                }
+                else if(arguments == 2)
+                {
+                    yield return new TestCaseData(names["Request" + i + "1"], names["Request" + i + "2"]);
+                }
+                else if (arguments == 3)
+                {
+                    yield return new TestCaseData(names["Request" + i + "1"], names["Request" + i + "2"], names["Request" + i + "3"]);
+                }
+            }
+        }
+
+
 
         public static IEnumerable TestCases1
         {
@@ -144,32 +183,6 @@ namespace TestFramework
                 yield return new TestCaseData(request2);
             }
         }
-
-
-        public static IEnumerable ManualAssertion(String DataSetName)
-        {
-            if (DataSetName.Equals("US Accounts"))
-            {
-                var accountGuid1 = Guid.NewGuid();
-                var request1 = new Entity("account") { Id = accountGuid1 };
-                request1.Attributes.Add("AgreementType", "DMA");
-                request1.Attributes.Add("AccountCountry", "US");
-                request1.Attributes.Add("MarketSegment", "Commercial");
-                request1.Attributes.Add("isCorporateEntityOverride", true);
-                yield return new TestCaseData(request1);
-            }
-            else if (DataSetName.Equals("Non US Accounts"))
-            {
-                var accountGuid3 = Guid.NewGuid();
-                var request3 = new Entity("account") { Id = accountGuid3 };
-                request3.Attributes.Add("AgreementType", "NDA");
-                request3.Attributes.Add("AccountCountry", "UK");
-                request3.Attributes.Add("MarketSegment", "Commercial");
-                request3.Attributes.Add("isCorporateEntityOverride", true);
-                yield return new TestCaseData(request3);
-            }
-        }
-
 
         public static IEnumerable AutoAssertion(String DataSetName)
         {

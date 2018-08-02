@@ -25,7 +25,7 @@ namespace LegalServicePlugin
                     try
                     {
                         AgreementInitiationServiceEntity agreementInitiationService = new AgreementInitiationServiceEntity();
-                        agreementInitiationService.GetAdobeCorporateEntity(entity);
+                        //agreementInitiationService.GetAdobeCorporateEntity(entity);
                         agreementInitiationService.GetAgreementContractClass(entity);
 
                     }

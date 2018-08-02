@@ -1,4 +1,5 @@
 ﻿using System;
+using AdobeCorporateService.beans;
 using LegalService;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
@@ -11,19 +12,19 @@ namespace LegalServiceTest
     {
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
-        public void GetAdobeCorporateTestEntityForUSAccounts(Entity entity)
+        public void GetAdobeCorporateTestEntityForUSAccounts(AccountEntity entity)
         {
             AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();
             agreementInitiationServiceEntity.GetAdobeCorporateEntity(entity);
-            Assert.AreEqual(entity.GetAttributeValue<String>("AdobeCorporateEntity"), "ADUS");
+            Assert.AreEqual(entity.AdobeCorporateEntity, "ADUS");
         }
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "Non US Accounts" })]
-        public void GetAdobeCorporateTestEntityForNonUSAccounts(Entity entity)
+        public void GetAdobeCorporateTestEntityForNonUSAccounts(AccountEntity entity)
         {
             AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();
             agreementInitiationServiceEntity.GetAdobeCorporateEntity(entity);
-            Assert.AreEqual(entity.GetAttributeValue<String>("AdobeCorporateEntity"), "ADIR");
+            Assert.AreEqual(entity.AdobeCorporateEntity, "ADIR");
         }
 
 
@@ -42,6 +43,14 @@ namespace LegalServiceTest
             AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();
             agreementInitiationServiceEntity.GetAgreementContractClass(entity);
             Assert.AreEqual(entity.GetAttributeValue<String>("ContractClass"), "NRG");
+        }
+
+        [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts and US Contact" })]
+        public void GetAdobeCorporateTestEntityForUSAccounts1(AccountEntity entity, ContactEntity contact)
+        {
+            AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();
+            String test = agreementInitiationServiceEntity.GetAdobeCorporateEntity(entity,contact);
+            Assert.AreEqual(test, "test");
         }
     }
 }
