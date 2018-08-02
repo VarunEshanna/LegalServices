@@ -32,7 +32,7 @@ namespace LegalService
             }
         }
 
-            public void GetAgreementContractClass(Entity entity)
+            public void GetAgreementContractClass(AccountEntity entity)
         {
             String value = null;
 
@@ -41,9 +41,8 @@ namespace LegalService
             typeClassMap.Add("DMA", "RG");
 
 
-            typeClassMap.TryGetValue(entity.GetAttributeValue<String>("AgreementType"), out value);
-            entity.Attributes.Add("ContractClass", value);
-            //return entity;
+            typeClassMap.TryGetValue(entity.AgreementType, out value);
+            entity.ContractClass = value;
         }
 
         // -----------------------------------------------------------------------------------------------------------------------------

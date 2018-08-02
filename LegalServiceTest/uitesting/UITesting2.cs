@@ -1,4 +1,5 @@
-﻿using Microsoft.Dynamics365.UIAutomation.Api;
+﻿using AdobeCorporateService.beans;
+using Microsoft.Dynamics365.UIAutomation.Api;
 using NUnit.Framework;
 using System.Collections.Generic;
 using TestFramework;
@@ -9,7 +10,7 @@ namespace LegalServiceTest.uitesting
     public class UITesting2
     {
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
-        public void TestContactCreateWithAccountLookUp1(Microsoft.Xrm.Sdk.Entity entity)
+        public void TestContactCreateWithAccountLookUp1(AccountEntity entity)
         {
             using (var xrmBrowser = new Browser(TestSettings.Options))
             {

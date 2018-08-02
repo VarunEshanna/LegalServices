@@ -1,7 +1,6 @@
 ﻿using LegalService;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using System;
@@ -28,13 +27,14 @@ namespace TestFrameworkLib
             // TODO: Get the connection string and database name from app config and remove the hardcoded values
             connectionString = "mongodb://localhost";
             databaseName = "testdb";
+
+            // TODO: Create MongoDatabase object using new API
             return new MongoClient(connectionString).GetServer().GetDatabase(databaseName);
 
         }
 
         public Dictionary<String, Object> getRequestData(String dataSetName)
         {
-            // For the given dataSetName, find the corresponding entry in mongo db
             var query = Query<DataSet>.EQ(ds => ds.Name, dataSetName);
             var dataSetObject = database.GetCollection<DataSet>("Dataset").FindOne(query);
             BsonDocument bsonDocument = dataSetObject.ToBsonDocument();
@@ -76,55 +76,20 @@ namespace TestFrameworkLib
                     myDictionary = mongoEntityObject.Entity;
                     foreach (KeyValuePair<string, object> entityDataFields in myDictionary)
                     {
-                        // do something with entry.Value or entry.Key
                         PropertyInfo RequestProperty = RequestType.GetProperty(entityDataFields.Key);
                         RequestProperty.SetValue(Request, entityDataFields.Value);
 
                     }
-
                     counter++;
                     names.Add(String.Format("Request{0}{1}", outerCounter.ToString(), counter.ToString()), Request);
                 }
                 counter = 0;
             }
-            
-            /*
-            // TODO hardcoded
-            String HARDCODEDVALUE = "Account";
-            var accountCollection = database.GetCollection(HARDCODEDVALUE);
-            var accounts = accountCollection.FindOneById(new ObjectId(dataSet.Name));
-            BsonDocument doc1 = accounts.ToBsonDocument();
-            MongoEntityObject ds1 = BsonSerializer.Deserialize<MongoEntityObject>(doc1);
-
-
-
-            /*
-            Type RequestType = module.GetType(ds1.Name);
-            Object Request = Activator.CreateInstance(RequestType);
-
-            Dictionary<String, Object> myDictionary = new Dictionary<String, Object>();
-            myDictionary = ds1.Entity;
-            foreach (KeyValuePair<string, object> entry in myDictionary)
-            {
-                // do something with entry.Value or entry.Key
-                PropertyInfo RequestProperty = RequestType.GetProperty(entry.Key);
-                RequestProperty.SetValue(Request, entry.Value);
-
-            }
-
-
-
-            //Response1 = BsonSerializer.Deserialize<AccountEntity>(ds1.Entity);
-
-            */
-
             return names;
         }
 
-
         public void insertData()
         {
-
             DataSet dataSet = new DataSet();
             dataSet.Name = "New Name";
             Dictionary<String, String> myDictionary1 = new Dictionary<String, String>();
@@ -141,60 +106,10 @@ namespace TestFrameworkLib
             newList.Add(myDictionary1);
             newList.Add(myDictionary2);
             dataSet.entityData = newList;
-
-            /*MongoEntityRef mr1 = new MongoEntityRef();
-            mr1.Name = "AdobeCorporateService.beans.AccountEntity";
-            Dictionary<String, Object> myDictionary = new Dictionary<String, Object>();
-            myDictionary.Add("AgreementType", "DMA");
-            myDictionary.Add("AccountCountry", "US");
-            myDictionary.Add("MarketSegment", "Commercial");
-            myDictionary.Add("isCorporateEntityOverride", true);
-            mr1.Entity = myDictionary;
-            */
             var collection = database.GetCollection<DataSet>("Dataset");
 
             collection.Insert(dataSet);
             var id = dataSet._id;
         }
-
-
-
     }
-
-
-
-    //[BsonNoId]
-    public class DataSet
-    {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public String _id { get; set; }
-        [BsonElement("Name")]
-        public String Name { get; set; }
-        [BsonElement("EntityData")]
-        public List<Dictionary<String, String>> entityData;
-    }
-
-    [BsonNoId]
-    public class MongoEntityObject
-    {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public String _id { get; set; }
-        [BsonElement("Name")]
-        public String Name { get; set; }
-        [BsonElement("Entity")]
-        public Dictionary<String, Object> Entity { get; set; }
-        public object Id { get; internal set; }
-    }
-
-    /*
-    public class MongoEntityRef
-    {
-        
-        public ObjectId _id { get; set; }
-        
-        public String Name { get; set; }
-        
-        public Dictionary<String, Object> Entity { get; set; }
-    }*/
-
 }

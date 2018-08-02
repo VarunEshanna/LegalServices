@@ -1,4 +1,5 @@
 ﻿using System;
+using AdobeCorporateService.beans;
 using FakeXrmEasy;
 using LegalServicePlugin;
 using Microsoft.Xrm.Sdk;
@@ -11,7 +12,7 @@ namespace LegalServiceTest
     {
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
-        public void TestAccountPluginUpdateForUSAccounts(Entity entity)
+        public void TestAccountPluginUpdateForUSAccounts(AccountEntity entity)
         {
 
             var context = new XrmFakedContext();
@@ -25,12 +26,12 @@ namespace LegalServiceTest
             plugCtx.InputParameters = inputParameters;
 
             Assert.DoesNotThrow(() => context.ExecutePluginWith<AccountPlugin>(plugCtx));
-            Assert.AreEqual((String)accountTarget["AdobeCorporateEntity"], "ADUS");
-            Assert.AreEqual((String)accountTarget["ContractClass"], "RG");
+            Assert.AreEqual(entity.AdobeCorporateEntity, "ADUS");
+            Assert.AreEqual(entity.ContractClass, "RG");
         }
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "Non US Accounts" })]
-        public void TestAccountPluginUpdateForNonUSAccounts(Entity entity)
+        public void TestAccountPluginUpdateForNonUSAccounts(AccountEntity entity)
         {
 
             var context = new XrmFakedContext();
@@ -44,8 +45,8 @@ namespace LegalServiceTest
             plugCtx.InputParameters = inputParameters;
 
             Assert.DoesNotThrow(() => context.ExecutePluginWith<AccountPlugin>(plugCtx));
-            Assert.AreEqual((String)accountTarget["AdobeCorporateEntity"], "ADIR");
-            Assert.AreEqual((String)accountTarget["ContractClass"], "NRG");
+            Assert.AreEqual(entity.AdobeCorporateEntity, "ADIR");
+            Assert.AreEqual(entity.ContractClass, "NRG");
         }
 
     }

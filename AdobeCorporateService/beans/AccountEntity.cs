@@ -1,13 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace AdobeCorporateService.beans
 {
-    //[BsonNoId]
     public class AccountEntity
     {
         public String Id { get; set; }
@@ -16,6 +10,7 @@ namespace AdobeCorporateService.beans
         public String MarketSegment { get; set; }
         public String isCorporateEntityOverride { get; set; }
         public String AdobeCorporateEntity { get; set; }
+        public String ContractClass { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Dynamics365.UIAutomation.Api;
+﻿using AdobeCorporateService.beans;
+using Microsoft.Dynamics365.UIAutomation.Api;
 using NUnit.Framework;
 using System;
 using TestFramework;
@@ -9,7 +10,7 @@ namespace LegalServiceTest.uitesting
     public class UITesting1
     {
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
-        public void TestAccountPluginUpdateForUSAccounts(Microsoft.Xrm.Sdk.Entity entity)
+        public void TestAccountPluginUpdateForUSAccounts(AccountEntity entity)
         {
             using (var xrmBrowser = new Browser(TestSettings.Options))
             {

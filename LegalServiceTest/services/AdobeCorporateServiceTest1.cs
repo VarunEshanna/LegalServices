@@ -29,20 +29,20 @@ namespace LegalServiceTest
 
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
-        public void GetAgreementContractClassTestEntityForRGTypes(Entity entity)
+        public void GetAgreementContractClassTestEntityForRGTypes(AccountEntity entity)
         {
             AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();
             agreementInitiationServiceEntity.GetAgreementContractClass(entity);
-            Assert.AreEqual(entity.GetAttributeValue<String>("ContractClass"), "RG");
+            Assert.AreEqual(entity.ContractClass, "RG");
         }
 
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "Non US Accounts" })]
-        public void GetAgreementContractClassTestEntityForNRGTypes(Entity entity)
+        public void GetAgreementContractClassTestEntityForNRGTypes(AccountEntity entity)
         {
             AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();
             agreementInitiationServiceEntity.GetAgreementContractClass(entity);
-            Assert.AreEqual(entity.GetAttributeValue<String>("ContractClass"), "NRG");
+            Assert.AreEqual(entity.ContractClass, "NRG");
         }
 
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts and US Contact" })]

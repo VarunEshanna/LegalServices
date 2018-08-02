@@ -1,4 +1,5 @@
 ﻿using System;
+using AdobeCorporateService.beans;
 using LegalService;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
@@ -14,19 +15,15 @@ namespace LegalServicePlugin
                 IOrganizationService service = factory.CreateOrganizationService(context.UserId);
                 ITracingService tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
-            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
+            if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is AccountEntity)
                 {
-                    Entity entity = (Entity)context.InputParameters["Target"];
-                    if (entity.LogicalName != "account")
-                    {
-                        return;
-                    }
-
+                    AccountEntity accountEntity = (AccountEntity)context.InputParameters["Target"];
+                   
                     try
                     {
                         AgreementInitiationServiceEntity agreementInitiationService = new AgreementInitiationServiceEntity();
-                        //agreementInitiationService.GetAdobeCorporateEntity(entity);
-                        agreementInitiationService.GetAgreementContractClass(entity);
+                        agreementInitiationService.GetAdobeCorporateEntity(accountEntity);
+                        agreementInitiationService.GetAgreementContractClass(accountEntity);
 
                     }
                     catch (Exception ex)
