@@ -82,13 +82,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="framework\CustomAttribute.cs" />
-    <Compile Include="beans\MappingTable.cs" />
     <Compile Include="beans\DataSet.cs" />
     <Compile Include="database\MongoDbConnection.cs" />
     <Compile Include="beans\MongoEntityObject.cs" />
     <Compile Include="framework\MyDataClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="beans\TestMethodDataEntity.cs" />
+    <Compile Include="templates\dynamics\plugin\PluginTemplates.cs" />
     <Compile Include="utility\TestSettings.cs" />
     <Compile Include="utility\TestUtility.cs" />
   </ItemGroup>
@@ -106,7 +106,9 @@
       <Name>LegalServicePlugin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="templates\dynamics\ui\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

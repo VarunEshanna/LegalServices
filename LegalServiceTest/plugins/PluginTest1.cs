@@ -1,5 +1,4 @@
-﻿using System;
-using AdobeCorporateService.beans;
+﻿using AdobeCorporateService.beans;
 using FakeXrmEasy;
 using LegalServicePlugin;
 using Microsoft.Xrm.Sdk;
@@ -14,7 +13,6 @@ namespace LegalServiceTest
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
         public void TestAccountPluginUpdateForUSAccounts(AccountEntity entity)
         {
-
             var context = new XrmFakedContext();
             var accountTarget = entity;
 

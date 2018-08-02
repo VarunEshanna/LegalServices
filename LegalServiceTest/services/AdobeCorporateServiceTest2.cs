@@ -8,14 +8,14 @@ namespace LegalServiceTest
     public class AdobeCorporateServiceTest2
     {
 
-        [Test, TestCaseSource(typeof(MyDataClass), "AutoAssertion", new object[] { "Adobe Corporate Entity Records" })]
+        [Test, TestCaseSource(typeof(MyDataClass), "AutoAssertion", new object[] { "Adobe Corporate Entity Records" }), CustomAttr]
         public GetAdobeCorporateEntityResponse GetAdobeCorporateEntityTest(GetAdobeCorporateEntityRequest GetAdobeCorporateEntityRequest)
         {
             AgreementInitiationService adobeCorporateService = new AgreementInitiationService();
             return adobeCorporateService.GetAdobeCorporateEntity(GetAdobeCorporateEntityRequest);
         }
 
-        [Test, TestCaseSource(typeof(MyDataClass), "AutoAssertion", new object[] { "Adobe Contract Class Records" })]
+        [Test, TestCaseSource(typeof(MyDataClass), "AutoAssertion", new object[] { "Adobe Contract Class Records" }), CustomAttr]
         public GetAgreementContractClassResponse GetAgreementContractClassTest(GetAgreementContractClassRequest GetAgreementContractClassRequest)
         {
             AgreementInitiationService adobeCorporateService = new AgreementInitiationService();

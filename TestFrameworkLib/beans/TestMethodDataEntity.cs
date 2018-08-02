@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace TestFramework
 {
-    class TestMethodDataEntity
+    public class TestMethodDataEntity
     {
+        public ObjectId _id { get; set; }
         public String TestMethodName { get; set; }
         public String TestClassName { get; set; }
         public String TestDataReference { get; set; }
@@ -12,7 +15,7 @@ namespace TestFramework
         public String Message { get; set; }  
     }
 
-    class TestClassDataEntity
+    public class TestClassDataEntity
     {
         public String Sprint { get; set; }
         public String ClassName { get; set; }

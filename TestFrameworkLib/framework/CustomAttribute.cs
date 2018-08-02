@@ -4,6 +4,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 using NUnit.Framework.Internal.Commands;
+using TestFrameworkLib;
 
 namespace TestFramework
 {
@@ -60,6 +61,7 @@ namespace TestFramework
 
                 }
                 testMethodDataEntity.Message = message;
+                // TODO: Buidling custom error messages
                 // Classname, methodname and argument list is available.
                 // Based on the argument list get the expected response object
                 // Get the actual response object --------------------------------- NEED TO CHECK THIS
@@ -67,7 +69,9 @@ namespace TestFramework
                 // Compare and build a custom error message
             }
 
-            // TODO commit the code
+            MongoDbConnection mongoDbConnection = new MongoDbConnection();
+            mongoDbConnection.upsertTestResultsData(testMethodDataEntity);
+
             return testResults;
         }
     }

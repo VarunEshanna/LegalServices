@@ -1,7 +1,6 @@
 ﻿using System;
 using AdobeCorporateService.beans;
 using LegalService;
-using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 using TestFramework;
 
@@ -11,7 +10,7 @@ namespace LegalServiceTest
     public class AdobeCorporateServiceTest1
     {
 
-        [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
+        [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" }), CustomAttr]
         public void GetAdobeCorporateTestEntityForUSAccounts(AccountEntity entity)
         {
             AgreementInitiationServiceEntity agreementInitiationServiceEntity = new AgreementInitiationServiceEntity();

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Configuration;
+using TestFramework;
+using System.Collections;
 
 namespace TestFrameworkLib
 {
@@ -54,7 +56,7 @@ namespace TestFrameworkLib
             {
                 outerCounter++;
                 int counter = 0;
-                foreach(KeyValuePair<String, String> entry in entityData)
+                foreach (KeyValuePair<String, String> entry in entityData)
                 {
                     String entityName = entry.Key;
                     String entityObjectIdReference = entry.Value;
@@ -63,13 +65,8 @@ namespace TestFrameworkLib
                     var entity = collectionName.FindOneById(new ObjectId(entry.Value));
                     BsonDocument bsonDoc = entity.ToBsonDocument();
                     MongoEntityObject mongoEntityObject = BsonSerializer.Deserialize<MongoEntityObject>(bsonDoc);
-
-                    var query1 = Query<MappingTable>.EQ(ds => ds.collection, entityName);
-                    var mappingTableEntries = database.GetCollection<MappingTable>("mappingtable").FindOne(query1);
-                    BsonDocument bsonDocument1 = mappingTableEntries.ToBsonDocument();
-                    MappingTable mappingTable = BsonSerializer.Deserialize<MappingTable>(bsonDocument1);
-
-                    Type RequestType = module.GetType(mappingTable.entity);
+                    
+                    Type RequestType = module.GetType(mongoEntityObject.Name);
                     Object Request = Activator.CreateInstance(RequestType);
 
                     Dictionary<String, Object> myDictionary = new Dictionary<String, Object>();
@@ -86,6 +83,48 @@ namespace TestFrameworkLib
                 counter = 0;
             }
             return names;
+        }
+
+        public void upsertTestResultsData(TestMethodDataEntity testMethodDataEntity)
+        {
+            var collection = database.GetCollection<TestMethodDataEntity>("TestMethodDataEntity");
+            var query = Query.And(
+                    Query<TestMethodDataEntity>.EQ(p => p.TestMethodName, testMethodDataEntity.TestMethodName),
+                    Query<TestMethodDataEntity>.EQ(p => p.TestClassName, testMethodDataEntity.TestClassName),
+                    Query<TestMethodDataEntity>.EQ(p => p.TestDataReference, testMethodDataEntity.TestDataReference)
+                );
+            var testMethodData = collection.Find(query);
+            if (testMethodData.Count() == 0)
+            {
+                collection.Insert(testMethodDataEntity);
+                var id = testMethodDataEntity._id;
+            }
+            else if (testMethodData.Count() == 1)
+            {
+                /*
+                BsonDocument bsonDocument1 = testMethodData.ToBsonDocument();
+                TestMethodDataEntity testMethodDataEntity1 = BsonSerializer.Deserialize<TestMethodDataEntity>(bsonDocument1);
+                testMethodDataEntity._id = testMethodDataEntity1._id;
+                var replacement = Update<TestMethodDataEntity>.Replace(testMethodDataEntity);
+                collection.Update(query, replacement);
+                */
+            }
+            else
+            {
+                // throw error
+            }
+
+
+        }
+
+        public BsonArray ToBsonDocumentArray(IEnumerable list)
+        {
+            var array = new BsonArray();
+            foreach (var item in list)
+            {
+                array.Add(item.ToBson());
+            }
+            return array;
         }
 
         public void insertData()
