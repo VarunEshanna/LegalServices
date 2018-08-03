@@ -35,7 +35,7 @@ namespace TestFrameworkLib
 
         }
 
-        public Dictionary<String, Object> getRequestData(String dataSetName)
+        public Dictionary<String, Object> getRequestData(String dataSetName, String type)
         {
             var query = Query<DataSet>.EQ(ds => ds.Name, dataSetName);
             var dataSetObject = database.GetCollection<DataSet>("Dataset").FindOne(query);
@@ -43,7 +43,14 @@ namespace TestFrameworkLib
             DataSet dataSet = BsonSerializer.Deserialize<DataSet>(bsonDocument);
 
             List<Dictionary<String, String>> entityDataList = new List<Dictionary<String, String>>();
-            entityDataList = dataSet.entityData;
+            if (type.Equals("Request"))
+            {
+                entityDataList = dataSet.entityRequestData;
+            }else if (type.Equals("Response"))
+            {
+                entityDataList = dataSet.entityResponeData;
+            }
+            
 
             int argumentSize = entityDataList.Count;
             Dictionary<String, Object> names = new Dictionary<String, Object>();
@@ -78,7 +85,14 @@ namespace TestFrameworkLib
 
                     }
                     counter++;
-                    names.Add(String.Format("Request{0}{1}", outerCounter.ToString(), counter.ToString()), Request);
+                    if (type.Equals("Request"))
+                    {
+                        names.Add(String.Format("Request{0}{1}", outerCounter.ToString(), counter.ToString()), Request);
+                    }else if (type.Equals("Response"))
+                    {
+                        names.Add(String.Format("Response{0}", outerCounter.ToString()), Request);
+                    }
+                    
                 }
                 counter = 0;
             }
@@ -144,7 +158,7 @@ namespace TestFrameworkLib
             List<Dictionary<String, String>> newList = new List<Dictionary<String, String>>();
             newList.Add(myDictionary1);
             newList.Add(myDictionary2);
-            dataSet.entityData = newList;
+            //dataSet.entityRequestData = newList;
             var collection = database.GetCollection<DataSet>("Dataset");
 
             collection.Insert(dataSet);

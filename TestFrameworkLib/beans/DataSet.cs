@@ -12,7 +12,9 @@ namespace TestFrameworkLib
         public String _id { get; set; }
         [BsonElement("Name")]
         public String Name { get; set; }
-        [BsonElement("EntityData")]
-        public List<Dictionary<String, String>> entityData;
+        [BsonElement("EntityRequestData")]
+        public List<Dictionary<String, String>> entityRequestData;
+        [BsonElement("EntityResponseData")]
+        public List<Dictionary<String, String>> entityResponeData;
     }
 }
