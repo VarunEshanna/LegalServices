@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Configuration;
 using TestFramework;
 using System.Collections;
+using TestFrameworkLib.beans;
 
 namespace TestFrameworkLib
 {
@@ -129,6 +130,19 @@ namespace TestFrameworkLib
             }
 
 
+        }
+
+        public ClassDetails getClassDetails(String DataSetName)
+        {
+            ClassDetails classDetails = null;
+            var query = Query<ClassDetails>.EQ(ds => ds.DataSet, DataSetName);
+            var dataSetObject = database.GetCollection<ClassDetails>("ClassDetails").FindOne(query);
+            BsonDocument bsonDocument = dataSetObject.ToBsonDocument();
+            if(bsonDocument != null)
+            {
+                classDetails = BsonSerializer.Deserialize<ClassDetails>(bsonDocument);
+            }
+            return classDetails;
         }
 
         public BsonArray ToBsonDocumentArray(IEnumerable list)

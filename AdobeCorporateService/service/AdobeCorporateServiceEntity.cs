@@ -32,7 +32,12 @@ namespace LegalService
             }
         }
 
-            public void GetAgreementContractClass(AccountEntity entity)
+        public void GetAdobeCorporateEntity(object entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetAgreementContractClass(AccountEntity entity)
         {
             String value = null;
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LegalService;
 using NUnit.Framework;
 using TestFrameworkLib;
+using TestFrameworkLib.beans;
 
 namespace TestFramework
 {
@@ -83,6 +84,35 @@ namespace TestFramework
                 else if (arguments == 3)
                 {
                     yield return new TestCaseData(reqNames["Request" + i + "1"], reqNames["Request" + i + "2"], reqNames["Request" + i + "3"]).Returns(respNames["Response" + i]);
+                }
+            }
+        }
+
+        public static IEnumerable AutoAutoAssertion(String DataSetName)
+        {
+            MongoDbConnection mongoDbConnection = new MongoDbConnection();
+            ClassDetails classDetails = mongoDbConnection.getClassDetails(DataSetName);
+            Dictionary<String, Object> reqNames = mongoDbConnection.getRequestData(DataSetName, "Request");
+            Dictionary<String, Object> respNames = mongoDbConnection.getRequestData(DataSetName, "Response");
+
+            int dataSets = 0;
+            int arguments = 0;
+            dataSets = CalculateDataSetParams(reqNames, ref arguments);
+
+            for (int i = 1; i < dataSets + 1; i++)
+            {
+                //TODO create testcases objects using reflection
+                if (arguments == 1)
+                {
+                    yield return new TestCaseData(classDetails, reqNames["Request" + i + "1"]).Returns(respNames["Response" + i]);
+                }
+                else if (arguments == 2)
+                {
+                    yield return new TestCaseData(classDetails, reqNames["Request" + i + "1"], reqNames["Request" + i + "2"]).Returns(respNames["Response" + i]);
+                }
+                else if (arguments == 3)
+                {
+                    yield return new TestCaseData(classDetails, reqNames["Request" + i + "1"], reqNames["Request" + i + "2"], reqNames["Request" + i + "3"]).Returns(respNames["Response" + i]);
                 }
             }
         }

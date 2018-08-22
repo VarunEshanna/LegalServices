@@ -10,7 +10,7 @@ namespace LegalServiceTest
     public class PluginTest1
     {
 
-        [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" })]
+        [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "US Accounts" }), CustomAttr]
         public void TestAccountPluginUpdateForUSAccounts(AccountEntity entity)
         {
             var context = new XrmFakedContext();
@@ -31,7 +31,6 @@ namespace LegalServiceTest
         [Test, TestCaseSource(typeof(MyDataClass), "ManualAssertion", new object[] { "Non US Accounts" })]
         public void TestAccountPluginUpdateForNonUSAccounts(AccountEntity entity)
         {
-
             var context = new XrmFakedContext();
             var accountTarget = entity;
 

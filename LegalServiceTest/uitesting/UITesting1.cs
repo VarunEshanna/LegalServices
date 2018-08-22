@@ -35,7 +35,7 @@ namespace LegalServiceTest.uitesting
 
                 xrmBrowser.CommandBar.ClickCommand("Save");
                 xrmBrowser.ThinkTime(2000);
-               
+
                 xrmBrowser.ThinkTime(2000);
             }
         }

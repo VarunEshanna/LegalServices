@@ -118,10 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="plugins\PluginTest1.cs" />
+    <Compile Include="services\AdobeCorporateServiceTest0.cs" />
     <Compile Include="services\AdobeCorporateServiceTest1.cs" />
     <Compile Include="services\AdobeCorporateServiceTest2.cs" />
     <Compile Include="plugins\PluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="services\AdobeCorporateServiceTest3.cs" />
     <Compile Include="uitesting\UITesting1.cs" />
     <Compile Include="uitesting\UITesting2.cs" />
     <Compile Include="uitesting\UITesting3.cs" />

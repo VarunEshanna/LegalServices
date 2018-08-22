@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="beans\ClassDetails.cs" />
     <Compile Include="framework\CustomAttribute.cs" />
     <Compile Include="beans\DataSet.cs" />
     <Compile Include="database\MongoDbConnection.cs" />
