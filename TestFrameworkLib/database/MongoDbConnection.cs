@@ -27,13 +27,10 @@ namespace TestFrameworkLib
             String connectionString = ConfigurationManager.AppSettings["connectionString"];
             String databaseName = ConfigurationManager.AppSettings["database"];
 
-            // TODO: Get the connection string and database name from app config and remove the hardcoded values
-            connectionString = "mongodb://localhost";
-            databaseName = "testdb";
-
-            // TODO: Create MongoDatabase object using new API
-            return new MongoClient(connectionString).GetServer().GetDatabase(databaseName);
-
+            var client = new MongoClient("mongodb://SLTESTFW:pA_r3MP1023@sapote-b:27021/SLTESTFW?connect=replicaSet");
+            var server = client.GetServer();
+            var database = server.GetDatabase("SLTESTFW");
+            return database;
         }
 
         public Dictionary<String, Object> getRequestData(String dataSetName, String type)
@@ -179,4 +176,6 @@ namespace TestFrameworkLib
             var id = dataSet._id;
         }
     }
+
+
 }
