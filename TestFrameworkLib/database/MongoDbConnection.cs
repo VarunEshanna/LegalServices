@@ -27,7 +27,7 @@ namespace TestFrameworkLib
             String connectionString = ConfigurationManager.AppSettings["connectionString"];
             String databaseName = ConfigurationManager.AppSettings["database"];
 
-            var client = new MongoClient("mongodb://SLTESTFW:pA_r3MP1023@sapote-b:27021/SLTESTFW?connect=replicaSet");
+            var client = new MongoClient("mongodb://SLTESTFW:pA_r3MP1023@sapote-b.adobe.com:27021/SLTESTFW?connect=replicaSet");
             var server = client.GetServer();
             var database = server.GetDatabase("SLTESTFW");
             return database;
