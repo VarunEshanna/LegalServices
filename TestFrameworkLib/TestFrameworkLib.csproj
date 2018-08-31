@@ -37,12 +37,6 @@
     <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Dynamics365.UIAutomation.Api">
-      <HintPath>..\..\..\..\Documents\dlls\Microsoft.Dynamics365.UIAutomation.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Dynamics365.UIAutomation.Browser">
-      <HintPath>..\..\..\..\Documents\dlls\Microsoft.Dynamics365.UIAutomation.Browser.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xrm.Sdk.2016.8.2.0.713\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
@@ -90,8 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="beans\TestMethodDataEntity.cs" />
     <Compile Include="templates\dynamics\plugin\PluginTemplates.cs" />
-    <Compile Include="utility\TestSettings.cs" />
-    <Compile Include="utility\TestUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
